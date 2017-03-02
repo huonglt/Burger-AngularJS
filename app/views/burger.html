@@ -1,0 +1,181 @@
+<div class="container">
+  <div class="row stepHeader spacingBottom">
+    <span class="glyphicon glyphicon-cutlery"> Select each ingredient below to build your own awesome burger!!!</span>
+  </div>
+  <div class="row spacingBottom">
+    <button type="button" class="btn btn-default btn-sm burgerText burgerButton" ng-class="{'active': model.currentStep==='bun'}" ng-click="methods.selectStep('bun')" >Bun</button>
+    <button type="button" class="btn btn-default btn-sm burgerText burgerButton" ng-class="{'active': model.currentStep==='meat'}" ng-click="methods.selectStep('meat')">Meat</button>
+    <button type="button" class="btn btn-default btn-sm burgerText burgerButton" ng-class="{'active': model.currentStep==='cheese'}" ng-click="methods.selectStep('cheese')">Cheese</button>
+    <button type="button" class="btn btn-default btn-sm burgerText burgerButton" ng-class="{'active': model.currentStep==='salads'}" ng-click="methods.selectStep('salads')">Salads</button>
+    <button type="button" class="btn btn-default btn-sm burgerText burgerButton" ng-class="{'active': model.currentStep==='extras'}" ng-click="methods.selectStep('extras')">Extras</button>
+  </div>
+  <div class="row stepHeader choiceBurgerLeft" ng-if="model.selectedBurger.bun || model.selectedBurger.meat || model.selectedBurger.cheese || (model.selectedBurger.salads.length > 0) || (model.selectedBurger.extras.length > 0)">
+    <div ng-class="{'col-xs-8 col-sm-8 col-md-10':model.currentStep!=='complete'}" ng-class="{'col-xs-12 col-md-12':model.currentStep==='complete'}" style="display:table-cell; float:none;">
+      <span><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;&nbsp;Your choice burger is:</span>
+
+      <ul class="unstyleList">
+        <li ng-if="model.selectedBurger.bun" ><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{model.selectedBurger.bun.name}}</li>
+        <li ng-if="model.selectedBurger.meat"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{model.selectedBurger.meat.name}}</li>
+        <li ng-if="model.selectedBurger.cheese"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{model.selectedBurger.cheese.name}} cheese</li>
+        <li ng-if="model.selectedBurger.salads.length > 0"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Salads: {{model.selectedBurger.salads}}</li>
+        <li ng-if="model.selectedBurger.extras.length > 0"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Extras: {{model.selectedBurger.extras}}</li>
+
+      </ul>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-2 choiceBurgerRight" ng-show="model.currentStep!=='complete'">
+      <button type="button" class="btn btn-default btn-sm burgerText" ng-click="methods.selectStep('complete')">
+          <span class="glyphicon glyphicon-saved"></span> Complete
+        </button>
+        <div style="height:10px"></div>
+          <button type="button" class="btn btn-default btn-sm burgerText" ng-click="methods.cancelBurger()">
+              <span class="glyphicon glyphicon-remove"></span> Start over
+            </button>
+    </div>
+  </div>
+
+  <div class="stepHeader" ng-if="model.currentStep==='bun'">
+    <div class="row stepHeading">
+      <div class="col-xs-12 col-md-12">
+        <span>Select bun</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3 col-md-3 burgerItem burgerColSpace" ng-class="{'selectedItem': bun.selected}" ng-repeat="bun in model.bunCollection" ng-click="methods.selectBun(bun)">
+
+        <div class="centerAlign">{{bun.name}}</div>
+        <div>
+          <img ng-src="{{bun.top}}" class="img-responsive" />
+          <img ng-src="{{bun.bottom}}" class="img-responsive"/>
+        </div>
+      </div>
+    </div>
+    <div class="row nextStepRow">
+      <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
+        <div class="navButtons">
+          <button type="button" class="btn btn-default btn-sm" ng-click="methods.selectStep('meat')">
+            <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="stepHeader" ng-if="model.currentStep==='meat'">
+
+      <div class="row stepHeading">
+        <div class="col-xs-12 col-md-12">
+          <span>Select Meat</span>
+        </div>
+      </div>
+
+    <div class="row">
+      <div class="col-xs-3 col-md-3 burgerItem burgerColSpace" ng-class="{'selectedItem': meat.selected}" ng-repeat="meat in model.meat" ng-click="methods.selectMeat(meat)">
+
+        <div class="centerAlign">{{meat.name}}</div>
+        <img ng-src="{{meat.img}}" class="img-responsive"/>
+
+      </div>
+    </div>
+
+    <div class="row nextStepRow">
+      <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
+        <div class="navButtons">
+          <button type="button" class="btn btn-default btn-sm" ng-click="methods.selectStep('bun')">
+              <span class="glyphicon glyphicon-circle-arrow-left"></span> Back
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="methods.selectStep('cheese')">
+              <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
+          </button>
+        </div>
+      </div>
+
+  </div>
+</div>
+  <div class="stepHeader" ng-if="model.currentStep==='cheese'">
+    <div class="row stepHeading">
+      <div class="col-xs-12 col-md-12">
+        <span>Select Cheese</span>
+      </div>
+
+    </div>
+      <div class="row">
+      <div class="col-xs-3 col-sm-3 col-md-3 burgerItem burgerColSpace" ng-class="{'selectedItem': cheese.selected}" ng-repeat="cheese in model.cheeseCollection" ng-click="methods.selectCheese(cheese)">
+        <div class="centerAlign">{{cheese.name}}</div>
+        <img ng-src="{{cheese.img}}" class="img-responsive"/>
+      </div>
+    </div>
+      <div class="row nextStepRow">
+        <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
+          <div class="navButtons">
+            <button type="button" class="btn btn-default btn-sm" ng-click="methods.selectStep('meat')">
+                <span class="glyphicon glyphicon-circle-arrow-left"></span> Back
+            </button>
+            <button type="button" class="btn btn-default btn-sm" ng-click="methods.selectStep('salads')">
+              <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
+            </button>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="stepHeader" ng-if="model.currentStep==='salads'">
+    <div class="row stepHeading">
+      <div class="col-xs-12 col-md-12">
+        <span>Select Salads</span>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div ng-repeat="salad in model.saladCollection">
+
+        <div class="col-xs-2 col-sm-2 col-md-2 burgerItem burgerColSpace" ng-class="{'selectedItem': salad.selected}" ng-click="methods.selectSalad(salad)">
+          <div class="centerAlign"><input type="checkbox" value="{{salad.name}}" ng-model="salad.selected" name="chkSalad"/><label for="chkSalad" class="burgerText">&nbsp;&nbsp;{{salad.name}}</label></div>
+          <img ng-src="{{salad.img}}" class="img-responsive"/>
+        </div>
+      </div>
+    </div>
+    <div class="row nextStepRow">
+      <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
+        <div class="navButtons">
+          <button type="button" class="btn btn-default btn-sm" ng-click="methods.selectStep('cheese')">
+              <span class="glyphicon glyphicon-circle-arrow-left"></span> Back
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="methods.selectStep('extras')">
+            <span class="glyphicon glyphicon-circle-arrow-right"></span> Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stepHeader" ng-if="model.currentStep==='extras'">
+    <div class="row stepHeading">
+      <div class="col-xs-12 col-md-12">
+        <span>Select Extras</span>
+      </div>
+    </div>
+    <div class="row">
+
+        <div class="col-xs-3 col-sm-3 col-md-3 burgerItem burgerColSpace" ng-class="{'selectedItem': extra.selected}" ng-repeat="extra in model.extraCollection">
+          <div class="centerAlign"><input type="checkbox" value="{{extra.name}}" ng-model="extra.selected" ng-click="methods.checkExtra(extra)" name="chkExtra"/><label for="chkExtra" class="burgerText">&nbsp;&nbsp;{{extra.name}}</label></div>
+          <img ng-src="{{extra.img}}" class="img-responsive" ng-click="methods.selectExtra(extra)"/>
+        </div>
+
+    </div>
+    <div class="row nextStepRow">
+      <div class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
+        <div class="navButtons">
+          <button type="button" class="btn btn-default btn-sm" ng-click="methods.selectStep('salads')">
+            <span class="glyphicon glyphicon-circle-arrow-left"></span> Back
+          </button>
+      </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="row stepHeader nextStepRow" ng-if="model.currentStep==='complete'">
+      <div class="col-xs-12 col-md-12 centerAlign">
+          <span class="glyphicon glyphicon-thumbs-up">&nbsp;Thanks for playing. Enjoy your burger!!!</span>
+      </div>
+    </div>
+</div>
