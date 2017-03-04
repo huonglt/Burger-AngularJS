@@ -5,15 +5,15 @@ version 0.14.0.
 
 ## Prerequisites
 node, bower, grunt, & grunt-cli preinstalled
-How?
-brew install node
-brew install bower
-npm install -g grunt
-npm install -g grunt-cli
+
+- brew install node
+- brew install bower
+- npm install -g grunt
+- npm install -g grunt-cli
 
 ## Install dependencies before you start
-npm install
-bower install
+- npm install
+- bower install
 
 ## Build & development
 
