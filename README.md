@@ -3,13 +3,21 @@
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.14.0.
 
-## To install
-npm install
-bower install
+## Prerequisites
+node, bower, grunt, & grunt-cli preinstalled
+
+- brew install node
+- brew install bower
+- npm install -g grunt
+- npm install -g grunt-cli
+
+## Install dependencies before you start
+- npm install
+- bower install
 
 ## Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
+Run `grunt` or grunt --force for building and `grunt serve` for preview.
 
 ## Testing
 
